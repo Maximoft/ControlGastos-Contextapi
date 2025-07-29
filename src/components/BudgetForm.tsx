@@ -1,7 +1,5 @@
 import { useMemo, useState } from "react"
 
-
-
 export default function BudgetForm() {
   
   const [budget, setBudget] = useState(0)
@@ -20,7 +18,7 @@ const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           Definir Presupuesto</label>
           <input type="number" 
           id="budget" 
-          className="w-full bg-white border border-gray-300 rounded-md p-2"
+          className="w-full bg-white border border-gray-300 rounded-md p-2 text-center"
           placeholder="Definir presupuesto"
           name="budget"
           value={budget}
