@@ -18,7 +18,7 @@ const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           Definir Presupuesto</label>
           <input type="number" 
           id="budget" 
-          className="w-full bg-white border border-gray-300 rounded-md p-2 text-center"
+          className="w-full bg-blue-100/50 border border-gray-300 rounded-2xl p-2 text-center"
           placeholder="Definir presupuesto"
           name="budget"
           value={budget}
@@ -26,12 +26,15 @@ const handleBudgetChange = (e: React.ChangeEvent<HTMLInputElement>) => {
           />
       </div>
 
-      <input type="submit" 
+      <div className="flex justify-center">
+        <input type="submit" 
       value="Guardar" 
-      className="w-full bg-blue-500 text-white font-bold py-2 rounded-md
+      className="w-40  bg-blue-500  text-white font-bold py-2 rounded-xl
         hover:bg-blue-900 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" 
       disabled={!isValid}
       />
+      </div>
+      
     </form>
   )
 }
