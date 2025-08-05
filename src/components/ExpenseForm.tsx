@@ -6,6 +6,8 @@ import { useState, type ChangeEvent } from "react";
 import { type DraftExpense} from "../types";
 import type { Value } from "react-calendar/dist/esm/shared/types.js";
 import ErrorMessage from "./ErrorMessage";
+import { useBudget } from "../hooks/useBudget";
+
 
 
 export default function ExpenseForm() {
@@ -17,6 +19,8 @@ export default function ExpenseForm() {
   })
 
   const [error, setError]=useState('')
+
+  const {dispatch} = useBudget()
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLSelectElement>) =>{
     const {name, value} = e.target
@@ -44,10 +48,19 @@ export default function ExpenseForm() {
       return
       
     }
-    console.log('good');
-    
-
+    //agregar un nuevo gasto
+    dispatch({type: 'add-expense', payload: {expense}})
+  
+      //reiniciar el state
+    setExpense({
+      amount: 0,
+      expenseName: '',
+      category: '',
+      date: new Date()
+    })
   }
+
+ 
 
   return (
     <form action="" className="space-y-6" onSubmit={handleSubmit}>
@@ -64,6 +77,7 @@ export default function ExpenseForm() {
           className="w-full border border-gray-300 p-2 rounded-xl bg-slate-100"
           placeholder="Añade el nombre del gasto"
           onChange={handleChange}
+          value={expense.expenseName}
         />
       </div>
 
@@ -78,6 +92,7 @@ export default function ExpenseForm() {
           className="w-full border border-gray-300 p-2 rounded-xl bg-slate-100"
           placeholder="Añade el monto del gasto ej. 300"
           onChange={handleChange}
+          value={expense.amount}
         />
       </div>
 
@@ -90,10 +105,11 @@ export default function ExpenseForm() {
           name="category"
           className="w-full border border-gray-300 p-2 rounded-xl bg-slate-100"
           onChange={handleChange}
+          value={expense.category}
         >
           <option value="">-- Seleccione --</option>
           {categories.map(category => (
-            <option key={category.id}>{category.name}</option>
+            <option value={category.id} key={category.id}>{category.name}</option>
           ))}
         </select>
       </div>
